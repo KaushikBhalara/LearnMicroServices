@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Mongo.Services.CouponAPI.Data;
@@ -7,8 +8,9 @@ using Mongo.Services.CouponAPI.Models.Dto;
 
 namespace Mongo.Services.CouponAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : ControllerBase
     {
         private readonly AppDbContext _db;
@@ -107,7 +109,7 @@ namespace Mongo.Services.CouponAPI.Controllers
             return _response;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public ResponseDto Delete(int id)
         {
             try

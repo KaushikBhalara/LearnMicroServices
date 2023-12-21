@@ -1,7 +1,39 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Mongo.Web.Service;
+using Mongo.Web.Service.IService;
+using Mongo.Web.Utility;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+
+//configuring IHttpFactory
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<ICouponService,CouponService>();
+builder.Services.AddHttpClient<IAuthService,AuthService>();
+
+//setting up base api urls
+SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponApiUrl"];
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthApiUrl"];
+SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductApiUrl"];
+
+//registering services
+builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromHours(10);
+        options.LoginPath = "/Auth/Login";
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+    });
 
 var app = builder.Build();
 
@@ -17,7 +49,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
