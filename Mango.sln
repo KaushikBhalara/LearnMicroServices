@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mongo.Services.CouponAPI", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mongo.Services.AuthAPI", "Mongo.Services.AuthAPI\Mongo.Services.AuthAPI.csproj", "{6333C00A-5FE6-40AD-9238-69C2CEE036B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo.Services.ProductAPI", "Mongo.Services.ProductAPI\Mongo.Services.ProductAPI.csproj", "{A2F2C478-2DB4-45EA-B9E9-A99F29070444}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mongo.Services.ProductAPI", "Mongo.Services.ProductAPI\Mongo.Services.ProductAPI.csproj", "{A2F2C478-2DB4-45EA-B9E9-A99F29070444}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
